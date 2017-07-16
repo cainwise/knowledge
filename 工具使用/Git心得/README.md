@@ -1,6 +1,31 @@
 # Git心得
 
->除了基本GIT操作外的操作。
+### 基本操作
+1. 未提交的内容清空、恢复
+
+    ```bash
+    git reset --hard HEAD
+    ```
+2. tag
+
+    ```bash
+    git tag
+
+    git tag 名字
+
+    git tag -d 名字 # 删除本地tag
+    ```
+3. 拉取远程并修剪本地
+
+    ```bash
+    git fetch -fp
+    ```
+4. 新建远程分支
+
+    ```bash
+    # 新建本地分支
+    git push origin 分支名
+    ```
 
 ### 如何在一台电脑中使用2（多个）个Github账号的SSH keys
 
@@ -127,9 +152,127 @@
 
     `git clone 仓库地址 --depth 数字`
 
-### 恢复内容
-1. 未提交的内容清空、恢复
+### [git-flow](https://github.com/nvie/gitflow)使用
+1. 初始化：
 
     ```bash
-    git reset --hard HEAD
+    git flow init -fd
     ```
+2. 开发新需求：
+
+    ```bash
+    git flow feature start “需求名”
+    # 从develop分支本地创建并切换至“feature/需求名”分支
+
+
+    推送具体需求的commits到远程“feature/需求名”
+
+
+    git flow feature finish “需求名”
+    # “feature/需求名”合并至本地develop分支
+    # 删除本地“feature/需求名”分支，切换至develop分支
+    # 可能删除远程的“feature/需求名”分支（根据git-flow版本不同）
+
+
+    git checkout develop
+    git push origin develop
+    # 推送至远程develop分支
+    ```
+
+    >可以分别开发多个需求，再一起发布（release）。
+3. 发布版本：
+
+    ```bash
+    git flow release start “版本号” [“develop的SHA”]
+    # 基于远程“develop的SHA”或最新内容，在本地创建并切换至“release/版本号”分支
+
+
+    推送需要改动的commits到远程“release/版本号”
+    # 更新package.json版本号
+    # 更新CHANGELOG.md
+    # 修复发版前临时发现的问题
+
+
+    git flow release finish “版本号”
+    #tag描述：
+    2017-07-18
+
+    - 新增 某功能 by @名字
+    - 优化 某功能 by @名字
+    - 修改 某功能 by @名字
+    - 上线 某功能 by @名字
+    # “release/版本号”合并至本地master分支、本地develop分支
+    # 新建本地“版本号”tag
+    # 删除本地“release/版本号”分支，切换至develop分支
+    # 可能删除远程的“release/版本号”分支（根据git-flow版本不同）
+
+
+    git checkout master
+    git push origin master
+    # 推送至远程master分支
+
+
+    git checkout develop
+    git push origin develop
+    # 推送至远程develop分支
+
+
+    git push --tags
+    # 推送至远程tag
+    ```
+4. 线上bug修复：
+
+    >类似于release。
+
+    ```bash
+    git flow hotfix start “版本号” [“release的版本号”]
+    # 从“release的版本号”或最新内容的master分支本地创建并切换至“hotfix/版本号”分支
+
+
+    推送具体需求的commits到远程“hotfix/版本号”
+
+
+    git flow hotfix finish “版本号”
+    #tag描述：
+    2017-07-18
+
+    - 修复 某功能 by @名字
+    # “hotfix/版本号”合并至本地master分支、本地develop分支
+    # 新建本地“版本号”tag
+    # 删除本地“release/版本号”分支，切换至develop分支
+    # 可能删除远程的“release/版本号”分支（根据git-flow版本不同）
+
+
+    git checkout master
+    git push origin master
+    # 推送至远程master分支
+
+
+    git checkout develop
+    git push origin develop
+    # 推送至远程develop分支
+
+
+    git push --tags
+    # 推送至远程tag
+    ```
+
+>CHANGELOG.md格式：
+>
+>```text
+># Change Log
+>
+>## [1.0.2] - 2017-07-16
+>
+>- 修复 某功能 by @名字
+>
+>## [1.0.1] - 2017-07-16
+>
+>- 修改 功能 by @wangwu
+>- 新增 功能 by @lisi
+>- 优化 功能 by @zhangsan
+>
+>## [1.0.0] - 2017-06-08
+>
+>- 上线 功能 by @zhengfeijie
+>```

@@ -73,3 +73,7 @@
     ```bash
     open 路径/文件  # Mac
     ```
+7. hosts文件位置
+
+    1. Mac、Linux：**/etc/hosts**
+    2. Windows：**C:\Windows\System32\drivers\etc\hosts**

@@ -6,25 +6,26 @@
     ```bash
     git reset --hard HEAD
     ```
-2. tag
+2. 拉取远程并修剪本地
+
+    ```bash
+    git fetch -fp
+    ```
+3. 新建远程分支
+
+    ```bash
+    # 新建本地分支
+    git push origin 分支名
+    ```
+4. tag
 
     ```bash
     git tag
 
     git tag 名字
+    git push --tags
 
     git tag -d 名字 # 删除本地tag
-    ```
-3. 拉取远程并修剪本地
-
-    ```bash
-    git fetch -fp
-    ```
-4. 新建远程分支
-
-    ```bash
-    # 新建本地分支
-    git push origin 分支名
     ```
 
 ### 如何在一台电脑中使用2（多个）个Github账号的SSH keys
@@ -197,9 +198,14 @@
     #tag描述：
     2017-07-18
 
-    - 新增 某功能 by @名字
-    - 优化 某功能 by @名字
-    - 修改 某功能 by @名字
+    - 重构 某功能 by @wushi
+    - 修复 某功能 by @yangjiu
+    - 更新 某功能 by @sunba
+    - 修改 某功能 by @qianqi
+    - 优化 某功能 by @zhaoliu
+    - 新增 某功能 by @wangwu
+    - 下线 某功能 by @lisi
+    - 移除 某功能 by @zhangsan
     - 上线 某功能 by @名字
     # “release/版本号”合并至本地master分支、本地develop分支
     # 新建本地“版本号”tag
@@ -257,22 +263,90 @@
     # 推送至远程tag
     ```
 
->CHANGELOG.md格式：
+>e.g. CHANGELOG.md
 >
 >```text
 ># Change Log
 >
->## [1.0.2] - 2017-07-16
->
->- 修复 某功能 by @名字
->
 >## [1.0.1] - 2017-07-16
 >
->- 修改 功能 by @wangwu
->- 新增 功能 by @lisi
->- 优化 功能 by @zhangsan
+>- 重构 某功能 by @wushi
+>- 修复 某功能 by @yangjiu
+>- 更新 某功能 by @sunba
+>- 修改 某功能 by @qianqi
+>- 优化 某功能 by @zhaoliu
+>- 新增 某功能 by @wangwu
+>- 下线 某功能 by @lisi
+>- 移除 某功能 by @zhangsan
 >
 >## [1.0.0] - 2017-06-08
 >
->- 上线 功能 by @zhengfeijie
+>- 上线 某功能 by @zhengfeijie
+>```
+
+### commit message格式
+>仅限于用在commit message，不得用在change log。
+
+```text
+<type>: <subject>
+
+<description>   # 可选
+
+<extra>         # 可选
+```
+
+>任何一行都不得超过72个字符（或100个字符），避免自动换行影响美观。
+
+1. **\<type\>**
+
+    用于说明commit的类别。
+
+    1. `feat`：新功能（feature）。
+    2. `fix`：修补bug。
+    3. `docs`：文档（documentation）。
+    4. `style`： 格式（不影响代码运行的变动）。
+    5. `refactor`：重构（即不是新增功能，也不是修改bug的代码变动）。
+    6. `test`：增加测试。
+    7. `chore`：构建过程或辅助工具的变动。
+    8. `revert`：撤销之前的commit。
+
+        >e.g.
+        >
+        >```text
+        >revert: feat: add 'graphiteWidth' option
+        >
+        >This reverts commit 667ecc1654a317a13331b17617d973392f415f02.
+        >```
+2. **\<subject\>**
+
+    commit的简短描述。
+
+    - 以动词开头，使用第一人称现在时。
+
+        >比如change，而不是~~changed~~或~~changes~~。
+    - 第一个字母小写。
+    - 结尾不加句号。
+3. **\<description\>**
+
+    commit的详细描述。
+
+    - 使用第一人称现在时。
+4. **\<extra\>**
+
+    1. 不兼容变动
+
+        以`BREAKING CHANGE`开头的内容。
+    2. 关闭issue
+
+        `Closes #1, #2`。
+
+>e.g.
+>
+>```text
+>feat: 添加了分享功能
+>
+>给页面添加了分享功能
+>
+>- 添加分享到微博的功能
+>- 添加分享到微信的功能
 >```

@@ -11,21 +11,36 @@
     ```bash
     git fetch -fp
     ```
-3. 新建远程分支
+3. 推送（新建）远程分支
 
     ```bash
-    # 新建本地分支
-    git push origin 分支名
+    git push origin 分支名 # 新建本地分支（不需要提交commit即可创建远程分支）
     ```
 4. tag
 
     ```bash
-    git tag
+    git tag              # 列出现有标签
 
-    git tag 名字
-    git push --tags
+    git tag 名字          # 新建标签
+    git push origin 名字  # 推送一个本地新建标签
+    git push --tags      # 推送所有本地新建标签
 
-    git tag -d 名字 # 删除本地tag
+    git tag -d 名字       # 删除本地tag
+    ```
+5. stash
+
+    ```bash
+    git stash                     # 往堆栈推送一个新的储藏，并且恢复修改过的被追踪的文件
+
+    git stash list                # 查看所有储藏
+
+    git stash apply               # 应用最后一个储藏
+    git stash apply stash@{数字}  # 应用指定的一个储藏
+
+    git stash drop                # 删除最后一个储藏
+    git stash drop stash@{数字}   # 删除指定的一个储藏
+
+    git stash pop                 # 应用最后一个储藏，删除最后一个储藏
     ```
 
 ### 如何在一台电脑中使用2（多个）个Github账号的SSH keys
@@ -162,15 +177,15 @@
 2. 开发新需求：
 
     ```bash
-    git flow feature start “需求名”
-    # 从develop分支本地创建并切换至“feature/需求名”分支
+    git flow feature start “需求名” [“develop的SHA”]
+    # 基于“develop的SHA”或最新develop，在本地创建并切换至“feature/需求名”分支
 
 
     推送具体需求的commits到远程“feature/需求名”
 
 
     git flow feature finish “需求名”
-    # “feature/需求名”合并至本地develop分支
+    # “feature/需求名”合并至本地develop分支（本地必须先pull feature/需求名、develop分支，解决冲突，否则成功无法执行命令）
     # 删除本地“feature/需求名”分支，切换至develop分支
     # 可能删除远程的“feature/需求名”分支（根据git-flow版本不同）
 
@@ -185,7 +200,7 @@
 
     ```bash
     git flow release start “版本号” [“develop的SHA”]
-    # 基于远程“develop的SHA”或最新内容，在本地创建并切换至“release/版本号”分支
+    # 基于“develop的SHA”或最新develop，在本地创建并切换至“release/版本号”分支
 
 
     推送需要改动的commits到远程“release/版本号”
@@ -207,20 +222,20 @@
     - 下线 某功能 by @lisi
     - 移除 某功能 by @zhangsan
     - 上线 某功能 by @名字
-    # “release/版本号”合并至本地master分支、本地develop分支
+    # “release/版本号”合并至本地develop分支、本地master分支（本地必须先pull release/版本号、release分支、master分支，解决冲突，否则成功无法执行命令）
     # 新建本地“版本号”tag
     # 删除本地“release/版本号”分支，切换至develop分支
     # 可能删除远程的“release/版本号”分支（根据git-flow版本不同）
 
 
-    git checkout master
-    git push origin master
-    # 推送至远程master分支
-
-
     git checkout develop
     git push origin develop
     # 推送至远程develop分支
+
+
+    git checkout master
+    git push origin master
+    # 推送至远程master分支
 
 
     git push --tags
@@ -231,8 +246,8 @@
     >类似于release。
 
     ```bash
-    git flow hotfix start “版本号” [“release的版本号”]
-    # 从“release的版本号”或最新内容的master分支本地创建并切换至“hotfix/版本号”分支
+    git flow hotfix start “版本号” [“master的SHA”]
+    # 基于“master的SHA”或最新master，在本地创建并切换至“hotfix/版本号”分支
 
 
     推送具体需求的commits到远程“hotfix/版本号”
@@ -249,14 +264,14 @@
     # 可能删除远程的“release/版本号”分支（根据git-flow版本不同）
 
 
-    git checkout master
-    git push origin master
-    # 推送至远程master分支
-
-
     git checkout develop
     git push origin develop
     # 推送至远程develop分支
+
+
+    git checkout master
+    git push origin master
+    # 推送至远程master分支
 
 
     git push --tags

@@ -75,6 +75,7 @@
                 location / {
                     index index.php index.html;
                     try_files $uri $uri/ /index.php?$query_string;
+                    #autoindex on;
                 }
 
                 error_page   500 502 503 504  /50x.html;
@@ -108,3 +109,5 @@
 4. 绑定hosts
 
     `vi /etc/hosts`：`127.0.0.1 域名`
+
+- 文件权限根据具体出现的问题调整。

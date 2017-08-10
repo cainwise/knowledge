@@ -335,8 +335,9 @@
 2. `<meta>的viewport`缩放为`1/DPR`，切图用DPR倍大小（CSS媒体查询方案或JS方案）。
 
     >仅适用于iOS。Android机型太复杂，bug永无止境。
-3. `border-image`2像素图片，一半透明、一半目标颜色。
+3. `border-image/background-image`2像素图片，一半透明、一半目标颜色。
 4. `box-shadow`。
+5. PostCSS的[postcss-write-svg](https://github.com/jonathantneal/postcss-write-svg)。
 
 ### `em`、`%`
 1. `em`单位：

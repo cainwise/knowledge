@@ -1,17 +1,5 @@
 # 命令行备忘
 
-### 验证文件的数字签名
-1. MD5
-
-    ```bash
-    md5 文件  #或md5sum
-    ```
-2. SHA1
-
-    ```bash
-    shasum 文件  #或sha1sum
-    ```
-
 ### nvm更新Node.js版本
 1. macOS或Linux的[nvm](https://github.com/creationix/nvm)：
 
@@ -77,3 +65,22 @@
 
     1. Mac、Linux：**/etc/hosts**
     2. Windows：**C:\Windows\System32\drivers\etc\hosts**
+8. 验证文件的数字签名
+
+    1. MD5
+
+        ```bash
+        md5 文件  #或md5sum
+        ```
+    2. SHA1
+
+        ```bash
+        shasum 文件  #或sha1sum
+        ```
+9. 查看设置环境变量
+
+    ```bash
+    echo $变量        # 查看变量
+
+    export 变量=值    # 设置变量
+    ```

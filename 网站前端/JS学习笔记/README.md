@@ -340,14 +340,6 @@
 
     >ie10-的DOM事件流只有冒泡，没有~~捕获~~。
 
-### jQuery的`文档的ready`事件、原生JS的`window的load`事件顺序
-1. 解析DOM。
-2. 加载外部JS、CSS。
-3. 解析并执行JS。
-4. 构造DOM完毕后执行：jQuery的`$(document).ready(function(){});`。
-5. 加载图片、媒体资源等外部文件。
-6. 资源加载完毕后执行：`window.onload();`。
-
 ### WAP端点透bug
 >1. PC端没有~~touch~~事件。
 >2. WAP端有`touchstart`、`touchmove`、`touchend`、`touchcancel`等`touch`事件。
@@ -399,21 +391,53 @@
 
 - 添加`document.body.addEventListener('touchstart', function () {}, true);`即可满足大部分浏览器使用伪类。
 
-### wap播放
->html的默认标签
+### WAP播放
+1. 自动播放
 
-1. 使用`autoplay`却无法自动播放
+    >`<video>`、`<audio>`同理。
 
-    ```javascript
-    window.ontouchstart = function () {
-     document.getElementById('audio或video').play()
+    ```html
+    <!-- 因为兼容性，故不使用`autoplay`属性，用JS代码模拟 -->
+    <video id="j-video">
+      您的浏览器不支持 video 标签
+    </video>
+ 
+    <script>
+      var video = document.getElementById('j-video')
     
-     window.ontouchstart = null
-    }
+      document.addEventListener('DOMContentLoaded', function () {
+        video.setAttribute('src', '视频地址')
+        video.play()
+      }, false)
+      
+      window.ontouchstart = function () {
+        video.play()
+        window.ontouchstart = null
+      }
+    </script>
     ```
-2. 播放视频时自动全屏
+2. 内嵌播放
 
-    在`<video>`添加`webkit-playsinline playsinline x5-video-player-type="h5"`属性，避免自动全屏播放。
+    ```html
+    <!-- 因为全屏播放完video会白屏，故可以在自己或父级添加封面图片背景 -->
+    <video id="j-video"
+           webkit-playsinline
+           playsinline
+           x5-video-player-type="h5">
+      您的浏览器不支持 video 标签
+    </video>
+ 
+    <script>
+      var video = document.getElementById('j-video')
+    
+      // QQ浏览器去除 x5-video-player-type 属性
+      if (/QQBrowser/.test(window.navigator.userAgent)) {
+        video.removeAttribute('x5-video-player-type')
+      }
+    </script>
+    ```
+3. 自定义播放按钮
+
 
 ---
 ## 编程技巧
@@ -798,7 +822,7 @@
         1. 使用外部资源。
         2. 不在HTML内嵌事件处理函数。
         3. 对只为DOM增添的内容，转移到外部资源中动态创建。
-    5. 性能优化[从URL输入之后](https://github.com/realgeoffrey/knowledge/blob/master/网站前端/前端内容/README.md#页面载入解析步骤)就开始考虑。
+    5. 性能优化[从URL输入之后](https://github.com/realgeoffrey/knowledge/blob/master/网站前端/前端内容/README.md#页面加载解析步骤)就开始考虑。
 
         >避免~~微优化~~：
         >

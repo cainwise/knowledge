@@ -819,6 +819,8 @@ function isEventSupported(eventName, element) {
 }
 ```
 
+>更全面的性能监听：[stats.js](https://github.com/mrdoob/stats.js/)。
+
 ### *原生JS*科学计数法转换成字符串的数字
 ```javascript
 function eToString(number) {

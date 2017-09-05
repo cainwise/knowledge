@@ -1437,7 +1437,9 @@
 >1. 当JS出现错误时，JS引擎会根据JS调用栈逐级寻找对应的`catch`，如果**没有找到相应的catch handler**或**catch handler本身又有error**或**又抛出新的error**，就会把这个error交给浏览器，浏览器会用各自不同的方式显示错误信息，可以用`window.onerror`进行自定义操作。
 >2. 在某个**JS block**（`<script>`或`try-catch`的`try`语句块）内，第一个错误触发后，当前JS block后面的代码会被自动忽略，不再执行，其他的JS block内代码不被影响。
 
-1. [原生错误类型](https://github.com/realgeoffrey/knowledge/blob/master/网站前端/前端内容/基础知识.md#原生错误类型)
+1. 原生错误类型
+
+    >来自[MDN:Error](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Error)。
 2. 自定义错误
 
     ```javascript
@@ -1548,7 +1550,7 @@
         };
     }
     ```
-2. `link`标签预加载
+2. `<link>`预加载
 
     1. `<link rel="dns-prefetch" href="域名">`
 

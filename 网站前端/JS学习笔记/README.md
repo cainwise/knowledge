@@ -1209,6 +1209,12 @@
     >1. `if()`中的代码对于`function`的声明就是用`eval`带入方法做参数，因此虽然返回true，但方法没有被声明。
     >2. `setTimeout`与`setInterval`中第一个参数若使用字符串，也是使用`eval`把字符串转化为代码。
 10. 获取数组中最大最小值：`Math.min.apply(null, [1, 2, 3]);/* 1*/`、`Math.max.apply(null, [1, 2, 3]);/* 3*/`。
+11. 设置CSS属性
+
+    使用`cssText`返回CSS的实际文本（ie8-返回时不包含最后一个`;`）。
+
+    1. 添加：`dom.style.cssText += '; 样式: 属性; 样式: 属性'`
+    2. 替换：`dom.style.cssText = '样式: 属性; 样式: 属性'`
 
 ---
 ## 功能归纳

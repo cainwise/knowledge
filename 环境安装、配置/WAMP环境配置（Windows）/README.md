@@ -51,7 +51,7 @@
 
 	左击系统托盘中的WampServer，选择 **phpMyAdmin** 。默认用户为`root`，密码为空。
 7. 配置 虚拟主机
-	1. 文本打开 *...wamp\bin\apache\Apache2.4.23\conf\extra* 下的 **httpd-vhosts**，配置localhost虚拟主机，把原内容修改成如下：
+	1. 文本打开 *...wamp\bin\apache\Apache2.4.23\conf\extra* 下的 **httpd-vhosts.conf**，配置localhost虚拟主机，把原内容修改成如下：
 
 	    >我想把测试内容放在*www/demo文件夹*中，其他内容可以放在*www/其他文件夹*中。
 
@@ -92,6 +92,25 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^(.*)$ index.php/$1 [L]
     ```
-9. 后续
+9. 开启端口映射
+
+    1. 选择 **Apache->httpd.conf** 配置文件:
+
+        1. 找到`LoadModule proxy_module modules/mod_proxy.so`，去除注释。
+        2. 找到`LoadModule proxy_http_module modules/mod_proxy_http.so`，去除注释。
+
+        ![WAMP图](./images/6.png)
+    2. 配置打开Apache模块的**proxy_http_module**、**proxy_module**：
+
+        ![WAMP图](./images/7.png)
+    3. 在 *...wamp\bin\apache\Apache2.4.23\conf\extra* 下的 **httpd-vhosts.conf**添加：
+
+        ```test
+        <VirtualHost *:80>
+            ServerName http://域名1
+            ProxyPass / http://域名2:端口/
+        </VirtualHost>
+        ```
+10. 后续
 
 	升级chrome之后导致出现 Aestan Tray Menu 找不到有效路径问题，查看 `..\wamp` 下的 **wampmanager.ini** 和 **wampmanager.conf**，把里面所有chrome浏览器错误路径修改为现在正确路径，再关闭wamp，重启即解决问题。

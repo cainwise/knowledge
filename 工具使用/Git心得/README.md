@@ -37,6 +37,7 @@
 
         ```bash
         git reset --hard HEAD~数字     # 取消当前版本之前的N次提交
+        # 如果需要，可以重新 git merge 其他分支
         git push origin HEAD --force   # 强制提交到远程版本库
 
         # 若删除的是其他用户已经拉取的commit，则会变成其他用户本地的commit
@@ -48,7 +49,7 @@
         操作任意commit。
 
         ```bash
-        git rebase -i --root master    # 选择commit处理状态
+        git rebase -i --root 分支名    # 选择commit处理状态
         # 编辑commit信息
 
         # git rebase --abort           # 取消所有rebase操作
@@ -210,7 +211,7 @@
     4. 仅对设置过的内容进行所有git操作：
 
         ```bash
-        git pull origin master
+        git pull origin 分支名
         ```
 2. 减少克隆深度
 

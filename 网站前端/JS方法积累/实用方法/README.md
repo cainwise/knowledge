@@ -510,6 +510,19 @@ function getLocation (url) {
 >}
 >```
 
+>拼接接口url时，可以在api字符串最后添加`?`并且加上一些固定不变的search参数，在使用url时候都以`&参数=值`的形式添加额外参数：
+>
+>>`xxx/xxx?&a=1`可以正常解析
+>
+>```javascript
+>const api1 = 'xxx/xxx?'
+>const api2 = 'xxx/xxx?v=1.0'
+>
+>// 使用时
+>url1 = api1 + '&a=1' + '&b=2' + '&c=3'
+>url2 = api2 + '&a=1' + '&b=2' + '&c=3'
+>```
+
 ### *原生JS*在URL末尾添加查询名值对
 ```javascript
 /**

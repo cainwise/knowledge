@@ -347,6 +347,7 @@
     >若font-size的单位为`em`，用从父级继承的font-size值乘以倍数。
 
     ```css
+    // e.g.
     .father {
         font-size: 10px;
     }

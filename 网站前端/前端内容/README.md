@@ -509,6 +509,8 @@
 
     服务端比前端提前一个版本，交付的内容包括API+文档。
 
+- API文档确定的字段，就算为空，也必须按照文档要求返回``或`[]`或`{}`，不允许返回内容丢失字段。
+
 ### JavaScript范围
 >ECMAScript是JavaScript的标准，狭义地说JavaScript是指ECMAScript。浏览器、Node.js都是JavaScript的运行环境。
 

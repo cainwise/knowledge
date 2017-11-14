@@ -626,10 +626,38 @@
 
     在插入、更新或移除DOM时，提供多种不同方式的应用过渡效果。
 
-    >1. 在 CSS 过渡和动画中自动应用 class
-    >2. 可以配合使用第三方 CSS 动画库，如 Animate.css
-    >3. 在过渡钩子函数中使用 JavaScript 直接操作 DOM
-    >4. 可以配合使用第三方 JavaScript 动画库，如 Velocity.js
+    >1. 在CSS过渡和动画中自动应用`class`
+    >2. 可以配合使用第三方CSS动画库，如Animate.css
+    >3. 在过渡钩子函数中使用JavaScript直接操作DOM
+    >4. 可以配合使用第三方JavaScript动画库，如Velocity.js
+
+    1. `<transition>`封装组件
+
+        1. 下列情形中，可以给任何元素和组件添加 entering/leaving 过渡
+
+            1. 条件渲染（使用`v-if`）
+            2. 条件展示（使用`v-show`）
+            3. 动态组件
+            4. 组件根节点
+        2. 当插入或删除包含在`<transition>`组件中的元素时
+
+            1. 自动嗅探目标元素是否应用了CSS过渡或动画，如果是，在恰当的时机添加/删除CSS类名。
+            2. 如果过渡组件提供了JavaScript钩子函数，这些钩子函数将在恰当的时机被调用。
+            3. 如果没有找到JavaScript钩子并且也没有检测到CSS过渡/动画，DOM操作（插入/删除）在下一帧中立即执行。
+        3. 过渡的类名
+
+            >`<transition name="my-transition">`的`name`属性修改以下`v`前缀。
+
+            1. `v-enter`
+
+                定义进入过渡的开始状态。在元素被插入时生效，在下一个帧移除。
+            2. `v-enter-active`
+
+
+            3. `v-enter-to`
+            4. `v-leave`
+            5. `v-leave-active`
+            6. `v-leave-to`
 
 ### vue-router
 >使用Charles代理到本地dev环境（map remote），要保证被代理和代理的路径相同，才能让路由正确。

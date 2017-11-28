@@ -31,6 +31,8 @@
 5. [Vue.js学习笔记](./网站前端/Vue.js学习笔记/README.md)
 6. [Node.js学习笔记](./网站前端/Node.js学习笔记/README.md)
 
+    >[我安装的全局仓库](./网站前端/Node.js学习笔记/我安装的全局仓库.md)
+
     1. [gulp使用](./网站前端/gulp使用/README.md)
 
         1. [gulpfile.js](./网站前端/gulp使用/tools/gulpfile.js)

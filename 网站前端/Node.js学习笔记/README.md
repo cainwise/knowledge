@@ -41,53 +41,132 @@
 ### npm
 1. 命令
 
-    1. 登录
+    >在任意命令后添加`-h`、`--help`查看当前命令的所有参数。
 
-        `npm login`
-    2. 初始化`package.json`
+    1. 制作
 
-        `npm init --yes`
-    3. 发布
+        1. 登录
 
-        `npm publish`
-    4. 升级npm自己
+            `npm login`
+        2. 初始化`package.json`
 
-        `npm install -g npm`
-2. 安装包
+            `npm init`
 
-    1. 作用域
+            - 修改初始化信息
 
-        1. 本地：在本地被`require`引入后使用。
-        2. 全局：在命令行中使用。
-    2. 安装方式
+                ```bash
+                npm set init.author.name "名字"
+                npm set init.author.email "邮箱"
+                npm set init.license "MIT"
+                ```
 
-        1. `package.json`（`npm install`）
+                >初始化信息会存放在`~/.npmrc`文件里。
+        3. 发布
 
-            >`主版本号.次版本号.补丁号`，详细定义查看[Semantic](http://semver.org/lang/zh-CN/)。
+            `npm publish [--tag <tag>]`
 
-            安装时自动选择相对最新版本号。
+            >默认发布至**latest**标签。除了latest，其他标签都不会默认被安装。最后推送的latest版本会显示在npm官网。
+        4. “下线”
 
-            1. 最新（主版本号最新）：
+            >`npm unpublish [<@scope>/]<pkg>[@<version>]`只能下线24小时内发布的版本。
 
-                `*`、`x`
-            2. 次版本号最新：
+            `npm deprecate <pkg>[@<version>] <message>`
+        5. 打印登录名
 
-                `1`、`1.x`、`^1.2.3`
-            3. 补丁号最新：
+            `npm whoami`
+        6. 登出
 
-                `1.2`、`1.2.x`、`~1.2.3`
-            4. 确定的版本：
+            `npm logout`
+    2. 查看信息
 
-                `1.2.3`
-        2. `npm install 包`
+        1. 查看模块信息
 
-            1. 没有后缀，则最新版
-            2. `@版本`
+            `npm info [<@scope>/]<pkg>[@<version>] [<field>[.subfield]...]`
+        2. 查看安装的模块和依赖
 
-                1. 具体版本号
-                2. `latest`
-                3. 版本范围：`>`、`>=`、`<`、`<=` + 版本号
-3. `package.json`
+            `npm list [[<@scope>/]<pkg> ...]`
+        3. 查看、添加、删除仓库标签的最后版本
+
+            >每个标签仅保留最后一个版本；latest标签无法删除。
+
+            ```bash
+            npm dist-tag ls [<pkg>]
+            npm dist-tag add <pkg>@<version> [<tag>]
+            npm dist-tag rm <pkg> <tag>
+            ```
+    3. 安装
+
+        1. 查看是否需要升级
+
+            `npm outdated [[<@scope>/]<pkg> ...]`
+        2. 安装包
+
+            自动选择范围内最后发布的版本，安装到本地或全局的`node_modules`。全局安装会额外创建系统命令。
+
+            1. 安装方式
+
+                1. `npm install`安装所在目录的`package.json`文件描述内容
+
+                    1. 最新（主版本号最新）：
+
+                        `*`、`x`
+                    2. 次版本号最新：
+
+                        `1`、`1.x`、`^1.2.3`
+                    3. 补丁号最新：
+
+                        `1.2`、`1.2.x`、`~1.2.3`
+                    4. 确定的版本：
+
+                        `1.2.3`
+
+                    >`主版本号.次版本号.补丁号`，详细定义查看[Semantic](http://semver.org/lang/zh-CN/)。
+                2. `npm install [<@scope>/]<name>[@<tag>]`
+
+                    1. 没有后缀，则最后发布的latest版本。
+                    2. `@内容`
+
+                        1. 具体版本号
+                        2. 标签
+                        3. 版本范围：`>`、`>=`、`<`、`<=` + 版本号。范围中最后发布的版本。
+
+                            >e.g. `npm install npm-devil@">=0.0.1 <0.0.5"`
+                3. 参数
+
+                    1. `--force`、`-f`：强制重新安装。
+
+                        >当目录中已经存在指定模块，默认将不会重新安装。或删除`node_modules`目录再重新安装。
+                    2. `--save`、`-S`：安装信息保存到`package.json`的`dependencies`。
+                    3. `--save-dev`、`-D`：安装信息保存到`package.json`的`devDependencies`。
+                    4. `--save-optional`、`-O`：安装信息保存到`package.json`的`optionalDependencies`。
+            2. 作用域
+
+                1. 本地：在本地被`require`引入后使用。
+                2. 全局：在命令行中使用，或被全局命令引用。
+        3. 升级
+
+            `npm update [-g] [<pkg>...]`
+
+            >只更新顶层模块，而不更新依赖的依赖。可以使用`npm --depth 9999 update`更新依赖的依赖。
+
+            - 升级npm自己
+
+                `npm install -g npm`
+        4. 卸载
+
+            `npm uninstall [<@scope>/]<pkg>[@<version>]... [--save-prod|--save-dev|--save-optional] [--no-save]`
+        5. 重装npm
+
+            `curl -L https://www.npmjs.org/install.sh | sh`
+
+            >若还是无法使用npm，建议重装Node.js。
+        6. 清空npm缓存
+
+            `npm cache clean`
+    4. 执行脚本
+
+        `npm run “package.json中scripts字段的命令”`
+2. `package.json`字段
 
     1. `dependencies`
 
@@ -99,11 +178,55 @@
         >- 何时不被安装：
         >
         >    1. 项目不会安装依赖库的`devDependencies`。
-        >    2. `NODE_ENV`值为`production;`时，项目不会安装自己的`devDependencies`。
+        >    2. `NODE_ENV`值为`production`时，项目不会安装自己的`devDependencies`。
         >
         >        >`export NODE_ENV=production;`。
         >    3. `npm install --production`不会安装自己的`devDependencies`。
-4. 包的制作-使用
+    3. `name`
+
+        仓库名。
+
+        >组成：小写、无空格、字母数字下划线中划线。
+    4. `version`
+
+        版本号`x.x.x`。
+
+        >`npm version [<newversion> | major | minor | patch | premajor | preminor | prepatch | prerelease | from-git]`更新`version`。
+    5. `description`
+
+        描述，也作为在npm官网被搜索的内容。
+    6. `main`
+
+        代码入口，默认`index.js`。
+    7. `scripts`
+
+        可执行脚本，用`npm run 脚本名`执行。
+    8. `repository`
+
+        仓库远程版本控制，可以是github等。
+
+        >e.g.
+        >
+        >```json
+        >"repository": {
+        >    "type": "git",
+        >    "url": "git@github.com:用户名/仓库名.git"
+        >}
+        >```
+    9. `keywords`
+
+        在npm官网被搜索的关键字。
+    10. `author`
+
+        仓库作者。
+    11. `license`
+
+        证书。
+    12. `homepage`
+
+        主页。
+    14. 其他
+3. 包的制作-使用
 
     1. 制作：
     
@@ -119,6 +242,11 @@
             2. 直接制作可兼容在浏览器环境运行的代码。
 
             >如`Vue.js`。
+4. 作用域的包
+
+    `@scope/project-name`
+
+- 改变安装包的顺序会影响安装包的内容和依赖。
 
 ### CommonJS规范
 >参考[阮一峰：require() 源码解读](http://www.ruanyifeng.com/blog/2015/05/require.html)、[阮一峰：CommonJS规范](http://javascript.ruanyifeng.com/nodejs/module.html)。
@@ -134,8 +262,7 @@
 
     加载模块。读取并执行一个JS文件，返回该模块的`exports`对象。
 
-    1. 如果 X 是内置模块（如`require('http')`），返回该模块，不再继续执行。
-    2. 如果 X 以`/`、`./`或`../`开头
+    1. 如果 X 以`/`、`./`或`../`开头
 
         1. 根据 X 所在的父模块，确定 X 的绝对路径。
         2. 将 X 当成**文件**，依次查找下面文件，只要其中有一个存在，就返回该文件，不再继续执行。
@@ -144,7 +271,12 @@
         3. 将 X 当成**目录**，依次查找下面文件，只要其中有一个存在，就返回该文件，不再继续执行。
 
             `X/package.json（main字段）`、`X/index.js`、`X/index.json`、`X/index.node`
-    3. 如果 X 不带路径
+    2. 如果 X 是内置模块，返回该模块，不再继续执行。
+
+        >e.g. `require('http')`
+    3. 如果 X 不带路径且不是内置模版
+
+        >当作安装在本地的模块。
 
         1. 根据 X 所在的父模块，确定 X 可能的安装目录。
         2. 依次在每个目录中，将 X 当成**文件**或**目录**加载。
@@ -154,7 +286,7 @@
     >
     >- 在`/home/ry/projects/foo.js`执行了`require('bar')`：
     >
-    >    1. 判断不是内置模块，属于不带路径情况；
+    >    1. 属于不带路径情况，判断不是内置模块，当作安装在本地的模块进行搜索；
     >    2. 依次搜索每一个目录：
     >
     >        ```text

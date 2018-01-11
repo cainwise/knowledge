@@ -1831,6 +1831,8 @@ xhr.send(null);
 
             appendPlace.appendChild(newScript);
             ```
+
+        >异步加载第三方资源可在`<script>`添加`defer`或`async`属性。
     2. 同步
 
         1. 添加JS代码

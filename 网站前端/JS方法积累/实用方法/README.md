@@ -2219,6 +2219,14 @@ if (!String.prototype.trim) {
 ```
 >来自[MDN:String.prototype.trim](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/Trim#兼容旧环境)。
 
+### *原生JS*`Number.isNaN`的Polyfill
+```javascript
+Number.isNaN = Number.isNaN || function (value) {
+  return typeof value === 'number' && isNaN(value);
+};
+```
+>来自[MDN:Number.isNaN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Number/isNaN#Polyfill)。
+
 ---
 ## jQuery方法
 

@@ -612,25 +612,29 @@
 
         >[JSFiddle Demo](https://jsfiddle.net/realgeoffrey/Lko8u1ku/)
 
-    - 无法操作客户端自定义播放控件：
+    - 播放视频问题：
 
-        1. 一般手机有两种播放方式：
+        1. 无法操作客户端自定义播放控件：
 
-            1. 全屏模式
-            2. 内联模式（浏览器支持其中一种）：
+            1. 一般手机有两种播放方式：
 
-                1. `webkit-playsinline playsinline`内联模式。
-                2. `x5-video-player-type="h5"`在底部的全屏内联模式（同层播放）。
-        2. 无法操作全屏模式
+                1. 全屏模式
+                2. 内联模式（浏览器支持其中一种）：
 
-            1. 无法改变全屏播放方向以及控件内容
+                    1. `webkit-playsinline playsinline`内联模式。
+                    2. `x5-video-player-type="h5"`在底部的全屏内联模式（同层播放）。
+            2. 无法操作全屏模式
 
-                DOM属性`x5-video-orientation="landscape或portraint"`、`x5-video-player-fullscreen="true"`无法解决。
-            2. 有些浏览器在全屏模式中，不触发任何video事件
+                1. 无法改变全屏播放方向以及控件内容
 
-                >无法自定义loading。
-        3. 关闭`controls`模式，部分浏览器依然出现播放按钮
-        4. 无法控制内联模式类型（内联模式/在底部的全屏内联模式）
+                    DOM属性`x5-video-orientation="landscape或portraint"`、`x5-video-player-fullscreen="true"`无法解决。
+                2. 有些浏览器在全屏模式中，不触发任何video事件
+
+                    >无法自定义loading。
+            3. 关闭`controls`模式，部分浏览器依然出现播放按钮
+            4. 无法控制内联模式类型（内联模式/在底部的全屏内联模式）
+
+        2. Android机型播放了`<video>`，会把视频的层级放到最高，暂时没有直接解决方法。
 
 ---
 ## 编程技巧

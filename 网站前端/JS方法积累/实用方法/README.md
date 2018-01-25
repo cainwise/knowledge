@@ -45,6 +45,7 @@
     1. [单词首字母大写](#原生js单词首字母大写)
     1. [展示页面帧数](#原生js展示页面帧数)
     1. [获取星座](#原生js获取星座)
+    1. [分割数组](#原生js分割数组)
 1. [Polyfill](#polyfill)
 
     1. [`requestAnimationFrame`和`cancelAnimationFrame`](#原生jsrequestanimationframe和cancelanimationframe的polyfill)
@@ -2113,6 +2114,33 @@ function getConstellation (birthday) {
   }
 
   return constellation
+}
+```
+
+### *原生JS*分割数组
+```javascript
+/**
+ * 分割数组，并以嵌套数组形式返回
+ * @param {Array} arr - 数组
+ * @param {Number} [divisor = 1] - 分割除数
+ * @returns {Array} newArr - 比如返回：[[0, 1, 2], [3, 4, 5], [6]]
+ */
+function divideArr(arr, divisor) {
+    divisor = divisor || 1;
+    arr = arr.slice();  // 浅复制
+
+    var newArr = [];    // 数组中嵌套数组的形式返回
+    var tempArr = [];   // 临时数组
+
+    while (arr.length > 0) {
+        for (var i = 0; i < divisor && arr.length > 0; i++) {
+            tempArr.push(arr.shift());
+        }
+        newArr.push(tempArr);
+        tempArr = [];
+    }
+
+    return newArr;
 }
 ```
 

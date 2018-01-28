@@ -23,6 +23,7 @@
     1. [选取范围内随机值](#原生js选取范围内随机值)
     1. [产生随机数](#原生js产生随机数)
     1. [格式化文件大小](#原生js格式化文件大小)
+    1. [判断是否为`Node`、是否为`Element`](#原生js判断是否为node是否为element)
     1. [判断对象是否为空](#原生js判断对象是否为空)
     1. [触摸屏模拟点击事件（消除“延时300毫秒后才触发click事件”，使点击事件提前触发）](#原生js触摸屏模拟点击事件消除延时300毫秒后才触发click事件使点击事件提前触发)
     1. [判断事件在浏览器是否存在](#原生js判断事件在浏览器是否存在)
@@ -815,6 +816,19 @@ var format = {
 var a = format.fileSize(数字);
 ```
 
+### *原生JS*判断是否为`Node`、是否为`Element`
+```javascript
+// 判断是否为Node
+function isNode(o) {
+  return typeof Node === 'object' ? o instanceof Node : !!o && typeof o === 'object' && typeof o.nodeType === 'number' && typeof o.nodeName === 'string';
+}
+
+// 判断是否为Element
+function isElement(o) {
+  return typeof HTMLElement === 'object' ? o instanceof HTMLElement : !!o && typeof o === 'object' && o !== null && o.nodeType === 1 && typeof o.nodeName === 'string';
+}
+```
+
 ### *原生JS*判断对象是否为空
 ```javascript
 function isObjEmpty(obj) {
@@ -1030,6 +1044,7 @@ var fourOperations = {
     }
 };
 ```
+>类似[number-precision](https://github.com/nefe/number-precision)。
 
 ### *原生JS*大数加减法（不考虑小数和负数）
 ```javascript
@@ -1209,6 +1224,7 @@ var eventUtil = {
      
             return false;
         });
+        // 或简写：$('...').on('...', false);
         ```
 
 ### *原生JS*、jQuery实现判断按下具体某键值

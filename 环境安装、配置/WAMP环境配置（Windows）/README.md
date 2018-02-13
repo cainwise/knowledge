@@ -99,7 +99,7 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^(.*)$ index.php/$1 [L]
     ```
-9. 开启端口映射
+9. 开启代理转发
 
     1. 左击系统托盘中的WampServer，选择 **Apache->httpd.conf** 配置文件:
 

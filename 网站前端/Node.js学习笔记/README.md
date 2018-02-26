@@ -27,11 +27,11 @@
     nvm npm_mirror https://npm.taobao.org/mirrors/npm/      #设置npm源：
 
     nvm list available
-    nvm install v新版本号
-    nvm use v新版本号
+    nvm install 新版本号
+    nvm use 新版本号
 
     nvm list
-    nvm uninstall v旧版本号     # 还可以再去目录中删除 C:\Users\用户名\AppData\Roaming\nvm\v版本
+    nvm uninstall 旧版本号     # 还可以再去目录中删除 C:\Users\用户名\AppData\Roaming\nvm\v版本
     ```
 
 >切换版本之后需重装Node.js的全局模块包。

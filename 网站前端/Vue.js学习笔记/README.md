@@ -1,5 +1,11 @@
 # Vue.js学习笔记
 
+## 目录
+1. [Vue官方教材](#vue官方教材)
+1. [vue-cli与nuxt.js](#vue-cli与nuxtjs)
+1. [vue-router](#vue-router)
+1. [jQuery与Vue.js对比](#jquery与vuejs对比)
+
 ### [Vue官方教材](https://cn.vuejs.org/v2/guide/)
 1. 单向数据流（实现双向绑定效果），响应式
 
@@ -525,7 +531,7 @@
         2. `<标签 is="组件名"></标签>`
         3.  动态组件：`<component v-bind:is="表达式"></component>`
         
-            ```javascript
+            ```html
             <div id="test">
               <component v-bind:is="current1"></component>
               <component v-bind:is="current2"></component>
@@ -635,7 +641,11 @@
         8. 循环组件。
 6. 过渡&动画
 
-### vue-router
+### [vue-cli](https://github.com/vuejs/vue-cli)与[nuxt.js](https://github.com/nuxt/nuxt.js)
+1. vue-cli：快速构建Vue应用的脚手架，可以手动配置所有安装模块。
+2. nuxt：基于Vue的通用应用框架，通过自带的`nuxt.config.js`统一配置安装模块。
+
+### [vue-router](https://github.com/vuejs/vue-router)
 >使用Charles代理到本地dev环境（map remote），要保证被代理和代理的路径相同，才能让路由正确。
 
 ### jQuery与Vue.js对比
@@ -643,17 +653,17 @@
 
     1. jQuery
 
-        （旧时代到现在）相对于原生JS，更好的API，兼容性极好的DOM、AJAX操作。
-    1. Vue.js
+        （旧时代到现在）相对于原生JS，更好的API，兼容性极好的DOM、AJAX操作。面向网页元素编程。
+    2. Vue.js
 
-        实现MVVM的数据双向绑定，实现自己的组件系统。
+        实现MVVM的数据双向绑定，实现自己的组件系统。面向数据编程。
 2. 优劣势对比
 
     1. jQuery
 
         1. 兼容性好，兼容基本所有当今浏览器；出现早，学习、使用成本低。
-        2. 程序员关注DOM，频繁操作DOM；代码量较多且不好维护，当页面需求变化之后代码改动难度大。
+        2. 程序员关注DOM，频繁操作DOM；代码量较多且不好维护、扩展，当页面需求变化之后代码改动难度大。
     2. Vue.js
 
-        1. 程序员关注数据，DOM的操作交给框架；代码清晰，利于维护；有自己的组件系统。
+        1. 程序员关注数据，DOM的操作交给框架；代码清晰、强制规范，利于维护；有自己的组件系统。
         2. 不兼容旧版本浏览器；需要一些学习成本。

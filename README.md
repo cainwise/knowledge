@@ -1,16 +1,18 @@
 # knowledge
 
 ><details>
-><summary>仓库定位</summary>
+><summary>约定</summary>
 >
->个人学习心得笔记：
+>1. 仓库定位：个人学习心得笔记
+>2. 个别含义
 >
->    - `+`、`-`含义
+>    1. `+`、`-`含义
 >
 >        兼容ie8+：包括ie8以及高于ie8的ie浏览器；兼容ie8-：包括ie8以及低于ie8的ie浏览器。
->    - 变量命名含义
+>    2. 变量命名含义
 >
->        `dom`为JS对象，`$dom`为jQuery（或Zepto）对象。
+>        1. `dom`为JS对象，`$dom`为jQuery（或Zepto）对象。
+>        2. `obj`为对象，`arr`为数组。
 ></details>
 
 ## 网站前端

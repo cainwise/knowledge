@@ -43,11 +43,13 @@
         1. [HTML条件注释法判断ie6、7、8、9版本](https://github.com/realgeoffrey/knowledge/blob/master/网站前端/JS方法积累/实用方法/README.md#原生js判断ie6789版本)。
         2. [用户代理判断ie所有版本](https://github.com/realgeoffrey/knowledge/blob/master/网站前端/JS方法积累/实用方法/README.md#原生js判断ie所有版本)。
 
-    >图片类型选择：
+    ><details>
+    ><summary>图片类型选择png-24</summary>
     >
     >1. 用gulp压缩图片后，图片在ie6~8表现出的颜色会改变，因此不要把背景切入图中，最好用透明的切图。
     >2. **png-24透明图**和**png-24不透明图**或**png-8不透明图**压缩后的文件大小相差不大，因此可以都使用**png-24透明图**切图后再用gulp压缩。
     >3. png24透明图增加透明区域对文件大小增加很小，因此切图时不必特意限制纯透明区域大小。
+    ></details>
 2. ie6/7替换写法：
 
 	1. `float`：
@@ -82,17 +84,19 @@
 
 	2. ~~JS方法~~：
 
-        >内部插件。
-        
-        ``` html
-        <!--[if IE 6]>
-        <script src="js/pngfilter.js"></script>
-        <script>
-            DD_belatedPNG.fix('.j-png');
-        </script>
-        <![endif]-->
-        ```
+        ><details>
+        ><summary>内部插件</summary>
+        >
+        >``` html
+        ><!--[if IE 6]>
+        ><script src="js/pngfilter.js"></script>
+        ><script>
+        >    DD_belatedPNG.fix('.j-png');
+        ></script>
+        ><![endif]-->
+        >```
         >插件bug：用div透明背景图覆盖出圆角效果会单边缩短1px，要给背景图左右多出1px背景(JS的bug)。
+        ></details>
 6. ie6不支持`max-height`、`min-height`、`max-width`、`min-width`：
 
 	- 用`_height/_width`等于固定值适量代替。
@@ -134,28 +138,30 @@
 17. ie6不支持`position: fixed;`，需使用JS组建：
 
     1. 平稳退化。用`position: absolute;`模拟。
-    2. 用JS插件
+    2. 用JS插件：
         
-        >内部插件。
-        
-        ``` html
-        <script src="js/jquery.js"></script>
-        <script src="js/ks.gototop.js"></script><!-- 依赖jQuery-->
-
-        <script>
-            ue.gototop({
-                relative: $('.content-wrapper'),	// 相对定位的对象
-                target: $('#j-sidenav'),	// gototop对象，必须设置具体width
-                top/bottom: 270,	// 距离顶部或底部的高度
-                left/right: 25,	// 距离相对定位对象的距离
-                scrollTop: 123, 	// y轴滚动条滚动到这个位置显示gototop对象 默认0
-                fade: false,	// 是否开启针对ie6取消渐隐渐现 默认开启
-                btn: $('#btn'),	// 到达scrollTop位置以内会隐藏
-                onscroll: function(){	// 滚动页面回调函数
-                }
-            });
-        </script>
-        ```
+        ><details>
+        ><summary>内部插件</summary>
+        >
+        >``` html
+        ><script src="js/jquery.js"></script>
+        ><script src="js/ks.gototop.js"></script><!-- 依赖jQuery-->
+        >
+        ><script>
+        >    ue.gototop({
+        >        relative: $('.content-wrapper'),	// 相对定位的对象
+        >        target: $('#j-sidenav'),	// gototop对象，必须设置具体width
+        >        top/bottom: 270,	// 距离顶部或底部的高度
+        >        left/right: 25,	// 距离相对定位对象的距离
+        >        scrollTop: 123, 	// y轴滚动条滚动到这个位置显示gototop对象 默认0
+        >        fade: false,	// 是否开启针对ie6取消渐隐渐现 默认开启
+        >        btn: $('#btn'),	// 到达scrollTop位置以内会隐藏
+        >        onscroll: function(){	// 滚动页面回调函数
+        >        }
+        >    });
+        ></script>
+        >```
+        >></details>
 18. ie6的`<input>`有很多CSS问题，尽量不要设置复杂的CSS效果在`<input>`上：
 
 	- `<input>`设`display: block;`会跟父级上下有1px间距，用`float`解决。

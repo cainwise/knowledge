@@ -71,23 +71,25 @@
 
 ![TCP三次握手和四次挥手图](./images/3.png)
 
->TCP协议头部的部分字段：
+><details>
+><summary>TCP协议头部的部分字段</summary>
 >
->    1. `sequence number`（`seq`）
+>1. `sequence number`（`seq`）
 >
->        资源的数据序列。
->    2. `acknowledgement number`（`ack`）
+>    资源的数据序列。
+>2. `acknowledgement number`（`ack`）
 >
->        对方所期望接收到的下一个序号，是上次已成功接收到`seq+1`。
->    3. `ACK`
+>    对方所期望接收到的下一个序号，是上次已成功接收到`seq+1`。
+>3. `ACK`
 >
->        `1`：应答域（acknowledgement number）有效；`0`：应答域无效。
->    4. `SYN`
+>    `1`：应答域（acknowledgement number）有效；`0`：应答域无效。
+>4. `SYN`
 >
->        用来建立连接。`SYN=1,ACK=0`：请求连接；`SYN=1,ACK=1`：响应连接。
->    5. `FIN`
+>    用来建立连接。`SYN=1,ACK=0`：请求连接；`SYN=1,ACK=1`：响应连接。
+>5. `FIN`
 >
->        自己数据已经传输完成，断开自己的连接。
+>    自己数据已经传输完成，断开自己的连接。
+></details>
 
 1. 建立连接的三次握手
 
@@ -101,6 +103,9 @@
     3. 主机B发送`FIN=1,seq=主机B序号`的断开信息。
     4. 主机A接收消息，发送`ACK=1,ack=主机B序号+1`的响应消息。
 
+><details>
+><summary>设计原因</summary>
+>
 >1. 三次握手原因：为了防止已失效的连接请求报文段突然又传送到服务端，让服务端误判后单方面建立连接。
 >    
 >    1. client早先发出的连接请求报文段并没有丢失，而是在某个网络结点长时间滞留，以致延误到client连接释放以后的某个时间才到达server；
@@ -114,6 +119,7 @@
 >    2. 当主机B返回ACK报文段时，表示主机B已经知道主机A没有数据发送了，但是主机B还是可以发送数据到主机A；
 >    3. 当主机B也发送了FIN报文段时，这个时候就表示主机B也没有数据要发送了；
 >    4. 当收到主机A返回ACK报文段时，表示主机A已经知道主机B没有数据发送了，之后彼此都中断这次TCP连接。
+></details>
 
 ### 输入URL后的HTTP流程
 1. 获取域名的IP地址
@@ -146,7 +152,8 @@
     <entity-body>                           //响应正文
     ```
 
->e.g.
+><details>
+><summary>e.g.</summary>
 >
 >1. request
 >
@@ -173,6 +180,7 @@
 >    
 >    {"errno":0,"errmsg":"","data":{""}}****
 >    ```
+></details>
 
 ### HTTP请求方法（HTTP request methods）
 >来自[MDN：HTTP 请求方法](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Methods)。
@@ -664,7 +672,11 @@
 
             发送密文的一方使用对方的公开密钥进行加密，对方收到被加密信息后再使用自己的私有密钥进行解密。
 
+            ><details>
+            ><summary>设计逻辑</summary>
+            >
             >它需要两个密钥，一个是公开密钥，另一个是私有密钥；一个用作加密，另一个则用作解密。使用其中一个密钥把明文加密后所得的密文，只能用相对应的另一个密钥才能解密得到原本的明文；甚至连最初用来加密的密钥也不能用作解密。虽然两个密钥在数学上相关，但如果知道了其中一个，并不能凭此计算出另外一个；因此其中一个可以公开，称为公钥，任意向外发布；不公开的密钥为私钥，必须由用户自行严格秘密保管，绝不通过任何途径向任何人提供，也不会透露给要通信的另一方，即使他被信任。
+            ></details>
         
         - 加密保证 = 对称密钥加密 + 非对称加密
         
@@ -729,11 +741,15 @@
 
 1. 简单请求（simple request）
 
+    ><details>
+    ><summary>区分</summary>
+    >
     >- 同时满足以下两个条件为简单请求，否则为非简单请求：
     >
     >    1. 请求方法：`HEAD`或`GET`或`POST`。
     >    2. 头信息仅包含：`Accept`、`Accept-Language`、`Content-Language`、`Content-Type`仅限于`application/x-www-form-urlencoded`或`multipart/form-data`或`text/plain`、等。
-
+    ></details>
+    
     - 流程：
 
         1. 请求头需要：`Origin`（来自的域）；

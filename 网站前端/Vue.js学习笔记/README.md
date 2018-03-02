@@ -25,7 +25,8 @@
             2. 数组赋值。
             3. 插值：`Vue.set(数组/对象, 索引/键, 新值)`：
 
-                e.g.
+                <details>
+                <summary>e.g.</summary>
 
                 ```javascript
                 const vm = new Vue({
@@ -38,6 +39,7 @@
 
                 Vue.set(vm.a, 'age', 27)
                 ```
+                </details>
             4. 改变数组长度：`数组.splice(新长度)`。
         2. 无法检测数组变动：
 
@@ -57,8 +59,9 @@
 
     1. 支持JS表达式（单个），不支持~~语句~~、~~流控制~~。
 
-        e.g.
-
+        <details>
+        <summary>e.g.</summary>
+        
         ```html
         <!-- 可行 -->
         {{ number + 1 }}
@@ -77,6 +80,7 @@
         {{ message; 1 + 1 }}
         -->
         ```
+        </details>
     2. 只能访问部分全局变量（白名单）；不允许访问自定义的全局变量（引入的其他库变量仅在JS代码中使用）。
     3. 作用域在所属Vue实例（组件也是Vue实例）中。
     4. `slot="字符串"`、`<slot name="字符串">`用于父级向子组件插入内容。
@@ -164,7 +168,8 @@
                 4. 多重值
         3. 传递给子组件DOM属性的值类型
 
-            e.g.
+            <details>
+            <summary>e.g.</summary>
 
             ```html
             <!-- 传递字符串 -->
@@ -176,9 +181,11 @@
             <my-component v-bind:some-prop="'1'">传递表达式：'1'（String）</my-component>
             <my-component v-bind:some-prop="a">传递表达式：a（变量是什么类型就是什么类型）</my-component>
             ```
+            </details>
         4. 若不带参数的`v-bind="表达式"`，则绑定表达式的所有属性到DOM。
 
-            e.g.
+            <details>
+            <summary>e.g.</summary>
 
             ```html
             <div id="test">
@@ -198,6 +205,7 @@
               })
             </script>
             ```
+            </details>
     5. `v-on`事件监听
 
         `v-on:`缩写`@`。
@@ -220,7 +228,8 @@
 
             >- 可同时使用，但改变顺序会产生不同效果。
             >
-            >    e.g.
+            >    <details>
+            >    <summary>e.g.</summary>
             >
             >    ```html
             >    <!-- Alt + C -->
@@ -235,9 +244,11 @@
             >    <!-- 只会阻止元素上的点击 -->
             >    <div v-on:click.self.prevent="doThat">...</div>
             >    ```
+            >    </details>
         2. `$event`原生DOM事件的变量，仅能由HTML传入
 
-            e.g.
+            <details>
+            <summary>e.g.</summary>
 
             ```html
             <div id="test">
@@ -255,6 +266,7 @@
               })
             </script>
             ```
+            </details>
         3. 自定义事件
         
             仅定义在子组件引用上，只能由子组件内部`$emit`触发，然后调用父级方法，再通过改变父级属性去改变子组件的`props`或置换组件。
@@ -318,7 +330,8 @@
         使用在`v-on`、`v-bind`、`v-module`后添加。
     10. `|`过滤器，参数带入函数运行出结果（支持过滤器串联）
 
-        e.g.
+        <details>
+        <summary>e.g.</summary>
 
         ```html
         <div id="test">
@@ -343,6 +356,7 @@
           })
         </script>
         ```
+        </details>
     11. `v-show`
 
         总是渲染出DOM，根据值切换`display`值。
@@ -498,7 +512,8 @@
             1. 仅能使用短横线隔开式（把大/小驼峰式用`-`隔开单词代替）。
             2. 在JS字符串模版、`.vue`组件，可以使用额外方式：
 
-                e.g.
+                <details>
+                <summary>e.g.</summary>
 
                 ```html
                 <!-- HTML必须是短横线隔开式 -->
@@ -523,6 +538,7 @@
                  })
                  </script>
                 ```
+                </details>
     4. 使用组件：
 
         1. `<组件名></组件名>`

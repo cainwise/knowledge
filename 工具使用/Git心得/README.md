@@ -76,10 +76,14 @@
         
         >当处理太多commits时候容易造成冲突。
 
+    ><details>
+    ><summary>不同项目对<code>git push --force</code>限制不同</summary>
+    >
     >1. [GitLab](https://about.gitlab.com/)默认设置**master**分支是**protected**状态，无法`git push --force`。
     >
     >    可以在Gitlab设置里面通过：*project* > *Settings* > *Repository* > *Protected branches* > *Unprotect*，打开权限（不建议长期开启）。
     >2. Github默认允许`git push --force`。
+    ></details>
 3. 合并
 
     ```git
@@ -277,8 +281,10 @@
     # 推送至远程tag
     ```
 
->e.g. CHANGELOG.md
+><details>
+><summary>CHANGELOG.md</summary>
 >
+>e.g. 
 >```text
 ># Change Log
 >
@@ -297,6 +303,7 @@
 >
 >- 上线 某功能 by @zhengfeijie
 >```
+></details>
 
 ### commit message格式
 >仅限于用在commit message，不得用在change log。
@@ -324,13 +331,15 @@
     7. `chore`：构建过程或辅助工具的变动。
     8. `revert`：撤销之前的commit。
 
-        >e.g.
+        ><details>
+        ><summary>e.g.</summary>
         >
         >```text
         >revert: feat: add 'graphiteWidth' option
         >
         >This reverts commit 667ecc1654a317a13331b17617d973392f415f02.
         >```
+        ></details>
 2. **\<subject\>**
 
     commit的简短描述。
@@ -354,7 +363,8 @@
 
         `Closes #1, #2`。
 
->e.g.
+><details>
+><summary>e.g.</summary>
 >
 >```text
 >feat: 添加了分享功能
@@ -364,6 +374,7 @@
 >- 添加分享到微博的功能
 >- 添加分享到微信的功能
 >```
+></details>
 
 ### 如何在一台电脑中使用2（多个）个Github账号的SSH keys
 

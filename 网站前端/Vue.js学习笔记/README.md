@@ -1,12 +1,14 @@
 # Vue.js学习笔记
 
 ## 目录
-1. [Vue官方教材](#vue官方教材)
-1. [vue-cli与nuxt.js](#vue-cli与nuxtjs)
+1. [vue](#vue)
 1. [vue-router](#vue-router)
+1. [vuex](#vuex)
+1. [vue-cli](#vue-cli)
+1. [nuxt.js](#nuxtjs)
 1. [jQuery与Vue.js对比](#jquery与vuejs对比)
 
-### [Vue官方教材](https://cn.vuejs.org/v2/guide/)
+### [vue](https://github.com/vuejs/vue)
 1. 单向数据流（实现双向绑定效果），响应式
 
     编写的代码不关注底层逻辑，只关注用**单向数据流**实现的**双向绑定**效果（Vue实例、组件间都是单向数据流）。
@@ -657,16 +659,262 @@
         8. 循环组件。
 6. 过渡&动画
 
-### [vue-cli](https://github.com/vuejs/vue-cli)与[nuxt.js](https://github.com/nuxt/nuxt.js)
-1. vue-cli：
-
-    快速构建Vue应用的脚手架，可以使用Vue官方或第三方模板来进行Vue应用的配置，一般包括webpack等工具的配置。
-2. nuxt：
-
-    基于Vue的通用应用框架，把webpack、vue-loader、vuex、vue-router等工具整合在一起，并通过自带的`nuxt.config.js`统一配置，不需要对每个工具进行单独配置。内置了SSR解决方案。
-
 ### [vue-router](https://github.com/vuejs/vue-router)
 >使用Charles代理到本地dev环境（map remote），要保证被代理和代理的路径相同，才能让路由正确。
+
+### [vuex](https://github.com/vuejs/vuex)
+
+### [vue-cli](https://github.com/vuejs/vue-cli)
+快速构建Vue应用的脚手架，可以使用Vue官方或第三方模板来进行Vue应用的配置，一般包括webpack等工具的配置。
+
+### [nuxt.js](https://github.com/nuxt/nuxt.js)
+基于Vue的通用应用框架，把webpack、vue-loader、vuex、vue-router等工具整合在一起，并通过自带的`nuxt.config.js`统一配置，不需要对每个工具进行单独配置。内置了SSR解决方案。
+
+>框架内的Vue组件都是以**Vue单文件组件**的形式，每一个`pages`目录下的组件都是一个页面。
+
+1. 目录结构
+
+    1. `pages`：页面目录
+        
+        Vue单文件组件。目录中的`.vue`文件自动生成对应的路由配置。
+    2. `assets`：待编译资源目录
+    
+        默认使用webpack的vue-loader、file-loader、url-loader加载器进行编译的资源，如`脚本（js、jsx、tsx、coffee）`、`样式（css、scss、sass、less）`、`模版（html、tpl）`、`JSON`、`图片`、`字体`文件。
+        
+        - 引用方式：组件中HTML引用`~/assets/`
+        
+        >对于不需要编译的静态资源可以放在`static`目录。
+    3. `static`：静态资源目录
+    
+        不需要webpack编译的静态资源。该目录下的文件会映射至项目根路径。
+
+        - 引用方式：组件中HTML引用`/`
+    4. `components`：组件目录
+    
+        Vue单文件组件。提供给项目中所有组件使用。
+        
+        - 引用方式：组件中ES6引用`~/components/`
+
+            <details>
+            <summary>任意组件引用<code>components</code>目录下组件的方式</summary>
+            
+            ```html
+            <template>
+              <div>
+                ...
+                <other-component/>
+                ...
+              </div>
+            </template>
+            
+            <script>
+              import OtherComponent from '~/components/OtherComponent.vue';
+            
+              export default {
+                components: {
+                  OtherComponent
+                },
+                ...
+              };
+            </script>
+            ```
+            </details>
+    5. `plugins`：Vue插件目录
+    
+        JS文件。在Vue根应用的实例化前需要运行的JS插件，制作Vue插件。
+        
+        - 引用方式：`nuxt.config.js`中加入`plugins`属性
+        
+            <details>
+            <summary><code>nuxt.config.js</code>文件引用<code>plugins</code>目录下插件的方式</summary>
+            
+            ```javascript
+            // nuxt.config.js
+            module.exports = {
+              plugins: ['~plugins/插件文件名']   // 一般也会配置在vendor.bundle.js中
+            }
+            ```
+            </details>
+    6. `layouts`：布局目录
+    
+        Vue单文件组件。扩展默认布局（`default.vue`、`error.vue`）或新增自定义布局。在布局文件中添加`<nuxt/>`指定页面主体内容。
+        
+        - 引用方式：`pages`目录下组件中加入`layout`属性
+
+            <details>
+            <summary><code>pages</code>目录下组件引用<code>layouts</code>目录下布局的方式</summary>
+            
+            ```html
+            <!-- layouts/布局文件名.vue -->
+            <template>
+              <div>
+                ...
+                <nuxt/>
+                ...
+              </div>
+            </template>
+            ...
+            ```
+            
+            ```javascript
+            // pages/页面名.vue
+            export default {
+              layout: '布局文件名',
+              // 或
+              layout (context) {
+                return '布局文件名'
+              },
+              ...
+            }
+            ```
+            </details>
+    7. `store`：状态目录
+    
+        >若`store`目录存在，则：引入`vuex`->增加`vuex`至vendor配置->设置Vue根实例的`store`配置项。
+    
+        - 两种使用方式
+        
+            1. 普通方式：`store/index.js`返回`store`实例
+            2. 模块方式：`store`目录下每个`.js`文件被转换为**指定命名的子模块**
+    8. `middleware`：中间件目录
+
+        JS文件。路由跳转之后，在页面渲染之前运行自定义函数。执行顺序：`nuxt.config.js`->`layouts`->`pages`。
+        
+        - 引用方式：`nuxt.config.js`文件或`layouts`或`pages`目录下组件中加入`middleware`属性
+
+            <details>
+            <summary><code>nuxt.config.js</code>文件或<code>layouts</code>或<code>pages</code>目录下组件引用<code>middleware</code>目录下中间件的方式</summary>
+            
+            ```javascript
+            // middleware/中间件文件名.js
+            export default function (context) {
+              // 路由跳转之后，且在每页渲染前运行
+              ...
+            }
+            ```
+            
+            ```javascript
+            // nuxt.config.js
+            module.exports = {
+              router: {
+                middleware: ['中间件文件名']
+              },
+              // 或
+              middleware: ['中间件文件名'],
+              ...
+            }
+  
+  
+            // layouts/布局文件名.vue
+            module.exports = {
+              middleware: ['中间件文件名'],
+              ...
+            }
+  
+  
+            // pages/页面名.vue
+            module.exports = {
+              middleware: ['中间件文件名'],
+              ...
+            }
+            ```
+            </details>
+    9. <details>
+        
+        <summary><code>nuxt.config.js</code>：配置文件</summary>
+    
+        1. `build`
+        
+            在自动生成的`vendor.bundle.js`文件中添加模块，以减少项目bundle的体积。
+            
+            1. `build.vendor`：配置公用插件`vendor.bundle.js`，避免每个页面都打包一次插件。
+            
+                <details>
+                <summary>e.g.</summary>
+                
+                ```javascript
+                module.exports = {
+                  build: {
+                    vendor: ['已安装插件名', '~/plugins/插件文件名']
+                  },
+                  ...
+                };
+                ```
+                </details>
+        2. `css`
+        
+            配置全局的（所有页面均需引用）样式文件、模块、第三方库。
+        3. `dev`
+        
+            配置开发/生产模式。
+        4. `env`
+        
+            配置（客户端和服务端）环境变量。
+        5. `generate`
+        
+            配置每个动态路由的参数，依据这些路由配置生成对应目录结构的HTML。
+        6. `head`
+        
+            配置默认的`<meta>`。
+        7. `loading`
+            
+            配置加载组件。
+        8. `modules`
+        
+            配置需要添加的nuxt模块。
+        9. `plugins`
+        
+            配置在Vue根应用的实例化前需要运行的JS插件。
+        10. `rootDir`
+        
+            配置根目录。
+        11. `router`
+        
+            配置覆盖默认的`vue-router`配置。
+        12. `srcDir`
+            
+            配置源码目录。
+        13. `transition`
+        
+            配置过渡效果属性的默认值。
+        </details>
+    10. `.nuxt`：nuxt内部构建资源目录（不要修改）
+    11. 根目录中创建自定义文件夹，放置JS模块，提供给其他文件引用
+    
+    ><details>
+    >
+    ><summary>别名</summary>
+    >
+    >1. `srcDir`：`~`或`@`
+    >2. `rootDir`：`~~`或`@@`
+    >
+    >- 默认的`srcDir`等于`rootDir`
+    ></details>
+2. 视图
+
+    1. 定制HTML模板
+    
+        <details>
+        <summary>在根目录添加<code>app.html</code>，可在其中添加任意静态自定义内容</summary>
+        
+        ```html
+        <!DOCTYPE html>
+        <html {{ HTML_ATTRS }}>
+          <head>
+            {{ HEAD }}
+          </head>
+          <body {{ BODY_ATTRS }}>
+            {{ APP }}
+          </body>
+        </html>
+        ```
+        </summary>
+3. 路由
+
+    依据`pages`目录结构自动生成`vue-router`模块的路由配置。
+4. 命令
+
+    `nuxt`、`nuxt build`、`nuxt start`、`nuxt generate`
 
 ### jQuery与Vue.js对比
 1. 做的事情

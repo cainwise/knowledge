@@ -1,13 +1,21 @@
 module.exports = {
   root: true,
-  parser: 'babel-eslint',
-  extends: 'standard',
-  globals: {
-    //    '$': false
+  parserOptions: {
+    'parser': 'babel-eslint'
   },
+  env: {
+    browser: true,
+    node: true
+  },
+  extends: [
+    'standard'
+  ],
   plugins: [
     'html'
   ],
+  globals: {
+    //    '$': false
+  },
   rules: {
     'arrow-parens': 0,
     'generator-star-spacing': 0,
@@ -15,7 +23,7 @@ module.exports = {
     'no-console': 0,
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
 
-    'semi': ['error', 'always'],
-    'max-len': [1, 150]
+    'semi': [2, 'always'],
+    'max-len': [1, { 'code': 150 }]
   }
 };

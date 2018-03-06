@@ -42,6 +42,9 @@
 5. [Vue.js学习笔记](./网站前端/Vue.js学习笔记/README.md)
 6. [Node.js学习笔记](./网站前端/Node.js学习笔记/README.md)
 
+    <details>
+    <summary>Node工具使用</summary>
+    
     >[我安装的全局仓库](./网站前端/Node.js学习笔记/我安装的全局仓库.md)
 
     1. [gulp使用](./网站前端/gulp使用/README.md)
@@ -51,10 +54,12 @@
             雪碧图的模板：[pc.handlebars](./网站前端/gulp使用/tools/pc.handlebars)、[wap.handlebars](./网站前端/gulp使用/tools/wap.handlebars)
         2. [package.json](./网站前端/gulp使用/tools/package.json)
         3. [.eslintrc.js](./网站前端/gulp使用/tools/.eslintrc.js)
-    2. babel使用
+    2. [ESLint配置方式](./网站前端/ESLint配置方式/README.md)
+    3. babel使用
 
         [.babelrc](./网站前端/babel使用/.babelrc)
-    3. [webpack使用](./网站前端/webpack使用/README.md)
+    4. [webpack使用](./网站前端/webpack使用/README.md)
+    </details>
 7. 初始化模板
         
     1. [cssReset.scss](./网站前端/初始化模板/cssReset.scss)
@@ -71,7 +76,7 @@
 2. [命令行备忘](./工具使用/命令行备忘/README.md)
 3. [IDE设置](./工具使用/IDE设置/README.md)
 
-    1. [phpstorm.jar](./工具使用/IDE设置/phpstorm_03.01.jar)
+    1. [phpstorm.jar](./工具使用/IDE设置/phpstorm_03.08.jar)
     2. [webstorm.jar](./工具使用/IDE设置/webstorm_08.22.jar)
     3. [.editorconfig](./工具使用/IDE设置/.editorconfig)
 4. [Charles使用](./工具使用/Charles使用/README.md)

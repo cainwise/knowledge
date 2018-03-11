@@ -296,7 +296,7 @@
     2. `properties`：是DOM对象的属性。
 - 当一个DOM节点为某个HTML标签所创建时，其大多数`properties`与对应`attributes`拥有相同或相近的名字，并不是一对一的关系：
 
-    1. 有几个`property`是直接反映`attribute`（`rel`、`id`），而有一些则用稍微不同的名字也直接映射（`htmlFor`映射`for`，`className`映射`class`）
+    1. 有几个`property`是直接反映`attribute`（`rel`、`id`），而有一些则用稍微不同的名字也直接映射（`htmlFor`映射`for`，`className`映射`class`，`dataset`映射`data-`集合）
 
         获取该`property`即等于读取其对应的`attribute`值，而设置该`property`即为`attribute`赋值。
     2. 很多`property`所映射的`attribute`是带有**限制**或**变动**的（`src`、`href`、`disabled`、`multiple`）
@@ -2540,16 +2540,31 @@
     2. 被闭包引用的变量不会被垃圾回收：合理使用闭包。
     3. 被遗忘的计数器或回调函数：不使用时及时清除。
 
-1. DOM清空或删除时，事件绑定未清除导致内存泄漏：删除DOM前，先移除事件绑定。
+1. DOM清空或删除时事件绑定未清除，引起的内存泄漏：删除DOM前，先移除事件绑定。
 
     >jQuery的`empty`和`remove`会移除元素内部的一切，包括绑定的事件及与该元素相关的jQuery数据（data、promise等所有数据）；`detach`则保留所有jQuery数据。
-2. 后代元素存在引用引起的内存泄漏：指向DOM的变量，在DOM删除后要设置为`null`。
+2. <details>
+
+    <summary>元素引用，引起的内存泄漏：指向DOM（包括后代）的变量，删除DOM后要设为<code>null</code>。</summary>
 
     ![内存泄漏图](./images/memory-leak-1.gif)
 
+    ```javascript
+    var refA = document.getElementById('refA');
+    var refB = document.getElementById('refB');
+    document.body.removeChild(refA);  // 尽管删除了，但DOM#refA不能GC回收，因为存在变量refA对它的引用
+
+    refA = null;  // 将变量refA对DOM#refA引用释放，但因为子元素的间接引用，还是无法回收DOM#refA
+
+    // 变量refB对DOM#refA的间接引用(变量refB引用了DOM#refB，而DOM#refB属于DOM#refA)
+
+    refB = null;  // 将变量refB对DOM#refB的引用释放，DOM#refA和DOM#refB就可以被GC回收
+    ```
+
     1. 黄色是指直接被JS变量所引用，在内存里。
-    2. 红色是指间接被JS变量所引用，refB被refA间接引用，导致即使refB变量被清空，也是不会被回收的。
-    3. 子元素refB由于parentNode的间接引用，只要它不被删除，它所有的父元素（图中红色部分）都不会被删除。
+    2. 红色是指间接被JS变量所引用，DOM#refA被DOM#refB间接引用，因此即使变量refA被清空，也没DOM被回收。
+    3. DOM#refB由于属于parentNode，只要引用它的变量不释放，它所有的父元素（图中红色部分）都不会被删除。
+    </details>
 
 >随着JS引擎的更新，原来会导致内存泄漏的bug已经慢慢被修复，因此写代码时不太需要注意内存泄漏问题（误）。
 

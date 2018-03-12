@@ -670,7 +670,7 @@
 ### [nuxt.js](https://github.com/nuxt/nuxt.js)
 基于Vue的通用应用框架，把webpack、vue-loader、vuex、vue-router等工具整合在一起，并通过自带的`nuxt.config.js`统一配置，不需要对每个工具进行单独配置。内置了SSR解决方案。
 
->框架内的Vue组件都是以**Vue单文件组件**的形式，每一个`pages`目录下的组件都是一个页面。
+>框架内的Vue组件都是以**Vue单文件组件**的形式，每一个`pages`目录下的组件都是一个页面。开发模式强制是SSR，打包可以选择是否SSR。
 
 1. 目录结构
 
@@ -681,7 +681,7 @@
     
         默认使用webpack的vue-loader、file-loader、url-loader加载器进行编译的资源，如`脚本（js、jsx、tsx、coffee）`、`样式（css、scss、sass、less）`、`模版（html、tpl）`、`JSON`、`图片`、`字体`文件。
         
-        - 引用方式：组件中HTML引用`~/assets/`
+        - 引用方式：组件中HTML引用、ES6引用`~/assets/`
         
         >对于不需要编译的静态资源可以放在`static`目录。
     3. `static`：静态资源目录
@@ -731,7 +731,7 @@
             ```javascript
             // nuxt.config.js
             module.exports = {
-              plugins: ['~plugins/插件文件名']   // 一般也会配置在vendor.bundle.js中
+              plugins: ['~/plugins/插件文件名']   // 一般也会配置在vendor.bundle.js中
             }
             ```
             </details>
@@ -843,7 +843,7 @@
                 </details>
         2. `css`
         
-            配置全局的（所有页面均需引用）样式文件、模块、第三方库。
+            配置全局的（所有页面均需引用）样式，包括文件、模块、第三方库。
         3. `dev`
         
             配置开发/生产模式。

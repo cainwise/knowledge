@@ -594,8 +594,10 @@
                       'myComponent',
                       {
                         props: ['father'],
-                        data () {
-                          return { son: this.father }
+                        computed: {
+                          son() {
+                            return this.father
+                          }
                         },
                         template: '<div>{{son}}</div>'
                       }
